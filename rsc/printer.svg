@@ -1,0 +1,19 @@
+<svg width="96" height="96" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke="#010000" fill="none" id="svg_1" d="m88,91l-80,0c-2.2,0 -3,-0.8 -3,-3l0,-80c0,-2.2 0.8,-3 3,-3l80,0c2.2,0 3,0.8 3,3l0,80c0,2.2 -0.8,3 -3,3z" class="st3"/>
+  <path stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke="#010000" fill="none" id="svg_2" d="m54.4,48l-12.8,0c-2,0 -3.6,-1.6 -3.6,-3.6l0,-22.8c0,-2 1.6,-3.6 3.6,-3.6l12.9,0c2,0 3.6,1.6 3.6,3.6l0,22.9c-0.1,1.9 -1.7,3.5 -3.7,3.5z" class="st1"/>
+  <line stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke="#010000" fill="none" id="svg_3" y2="78.611163" y1="78.611163" x2="83" x1="13" class="st1"/>
+  <line stroke-miterlimit="10" stroke-linejoin="round" stroke="#010000" fill="none" id="svg_4" y2="30" y1="30" x2="34.684928" x1="4.684928" class="st2"/>
+  <line stroke-miterlimit="10" stroke-linejoin="round" stroke="#010000" fill="none" id="svg_5" y2="30" y1="30" x2="91.452058" x1="61.452058" class="st2"/>
+  <path stroke-miterlimit="10" stroke-linejoin="round" stroke="#010000" fill="none" id="svg_7" d="m42,17c0,0 0,-1.4 0,-3s1.8,-3 4,-3l4,0c2.2,0 4,-1.4 4,-3s0,-3 0,-3" class="st2"/>
+  <polygon stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke="#010000" fill="none" id="svg_8" points="51,63 45,63 42,54 54,54 " class="st1"/>
+  <path stroke-miterlimit="10" stroke-linejoin="round" stroke="#010000" fill="none" id="svg_10" d="m48,67l0,5c0,2.2 1.8,4 4,4l26,0" class="st2"/>
+  <text stroke="#010000" transform="matrix(0.4765555262565613,0,0,0.4765555262565613,17.101912415586412,49.45732394885272) " xml:space="preserve" text-anchor="start" font-family="'Trebuchet MS', Gadget, sans-serif" font-size="24" id="svg_13" y="81.021914" x="40.276232" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">zaxe</text>
+ </g>
+</svg>

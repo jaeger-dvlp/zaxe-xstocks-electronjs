@@ -1,0 +1,654 @@
+
+::-webkit-scrollbar{
+  width: 3px;
+}
+
+::-webkit-scrollbar-track{
+  background: #9b9b9b; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #009BDF; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #01aef8; 
+}
+
+*{
+  scroll-behavior:smooth;
+  -moz-scroll-behavior: smooth;
+  -o-scroll-behavior: smooth;
+  -webkit-scroll-behavior: smooth;
+  overflow:hidden;
+}
+
+body{
+
+    user-select: none;
+    -webkit-user-select: none;
+    background: transparent;
+    background-color:transparent;
+
+}
+
+.body{
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    background: transparent;
+    background-color:transparent;
+}
+
+.root{
+    overflow: hidden;
+    box-shadow:0px 0px 5px rgba(0, 0, 0, 0.315)!important;
+    width:99.4vw;
+    height:99vh!important;
+    border-radius:5px;
+    background-color: rgb(250, 250, 250);
+    margin-top:2.5px;
+    transition:all 0.1s;
+    position:relative;
+}
+
+.root2
+{
+    overflow: hidden;
+    background-color: rgb(250, 250, 250);
+    width:0;
+    height:0;
+    transition:all 0.1s;
+    position: absolute;
+    left:0;
+    bottom:0;
+}
+
+
+.headerbar{
+  -webkit-app-region: drag;
+  z-index:1;
+    width:100%;
+    height:20px;
+    background:linear-gradient(to top,rgb(221, 221, 221),whitesmoke);
+    border-bottom:1px solid rgba(128, 128, 128, 0.37);
+}
+
+.footerbar{
+  -webkit-app-region: drag;
+  padding:0;
+  z-index:1;
+  bottom:0px;
+  position:absolute;
+  overflow: hidden;
+    width:100%;
+    height:20px;
+    background:linear-gradient(to bottom,rgb(221, 221, 221),whitesmoke);
+    border-top:1px solid rgba(128, 128, 128, 0.37);
+    
+}
+
+
+.logo{
+    background-image: url("../rsc/logo.png");
+    background-size: cover;
+    width:65px;
+    height:18px;
+    margin-top:0px;
+}
+
+.headercontrol{
+  z-index:1;
+    -webkit-app-region:none!important;
+    top:3.7px;
+    position:absolute;
+    left:4px;
+    user-select:all;
+    -webkit-user-select: all;
+}
+
+.headerbutton{
+    width:12px;
+    height:12px;
+    background-color:green;
+    border-radius:15px;
+    margin-left:4px;
+    margin-right:4px;
+    box-shadow:0px 0px 2px 2px rgba(0, 0, 0, 0.082);
+    cursor:pointer;
+
+}
+
+
+.footercontrol{
+  z-index:1;
+    -webkit-app-region:none!important;
+    top:0px;
+    position:absolute;
+    left:0px;
+    width:99%;
+}
+.users{
+  font-family:'Rubik';
+  color: gray;
+  font-weight:400;
+  font-size:13px;
+  margin:0;
+
+}
+
+  .loader-wrapper {
+    border-radius:10px;
+    width:99.4vw;
+    height:99vh;
+    position: absolute;
+    left: 0px;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin:center;
+    z-index:2;
+  }
+  .loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border-radius:100px;
+    overflow: hidden;
+    background: linear-gradient(to right,#1588C6,#2B2B2B);
+    animation: loader 2s infinite linear;
+    transform-origin:center;
+    z-index:3;
+  }
+
+  .loadertext{
+    color: white;
+    font-size:20px;
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    vertical-align:middle;
+    transform-origin:center;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .loader-inner {
+    vertical-align: top;
+    width: 20px;
+    height:20px;
+    border-radius:100px;
+    top:5px;
+    left:5px;
+    background-color: white;
+    transform-origin:center;
+    z-index:4;
+    position: absolute;
+  }
+
+  @keyframes loader {
+    0% { transform: rotate(0deg);}
+    25% { transform: rotate(180deg);}
+    50% { transform: rotate(360deg);}
+    75% { transform: rotate(540deg);}
+    100% { transform: rotate(720deg);}
+  }
+
+
+  .main{
+    background-color: whitesmoke;
+    width:100%;
+    height:100%;
+    padding:0;
+
+  }
+
+
+  .leftbar{
+
+    width:63px;
+    position: relative;
+    left:-16px;
+    height:100%;
+    background-color:rgb(235, 235, 235);
+    border:1px solid rgb(211, 211, 211);
+    border-left:none;
+    padding:0;
+    border-top:none;
+    border-bottom:none;
+    margin:0;
+  }
+  
+
+  .xlogo{
+    width:63px;
+    height:63px;
+    position: relative;
+    background-image:url("../rsc/logobar.png");
+    background-position: center;
+    background-size: contain;
+    
+  }
+
+.lbarbutton{
+  width:63px;
+  height:63px;
+  transition:all 0.1s;
+  border-top:1px solid lightgray;
+  cursor: pointer;
+  padding:10px;
+}
+
+.lbarselected{
+  padding:5px;
+  transition:all 0.1s;
+}
+
+.lbarselected div svg g g{
+  transition:all 0.1s;
+  fill:#009bdf!important;
+  
+}
+
+.lbarbutton:hover{
+  padding:5px;
+  transition:all 0.1s;
+}
+
+.lbarbutton:hover svg g g{
+  fill:#4b96b6;
+  transition:all 0.1s;
+}
+.lbarbutton svg g g{
+  transition:all 0.1s;
+  fill:#6a848f ;
+}
+
+.lbarbutton svg{
+  width:100%;
+  height:100%;
+}
+
+.lbarin{
+  width:100%;
+  height:100%;
+}
+
+  .mains{
+    width: 97%;
+    height:94.3%;
+    background-color:rgb(250, 250, 250);
+    position:relative;
+
+  }
+  .mainsup{
+    width: 100%;
+    height:97%;
+    background-color:rgb(250, 250, 250);
+    position:relative;
+
+  }
+
+  .printers, .logs, .printeradd{
+    position:relative;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: whitesmoke;
+    overflow-y:auto;
+    transition:all 1s;
+  }
+  .printersdeactive,.logsdeactive, .printeradddeactive{
+    width:100%;
+    height:100%;
+    background-color: whitesmoke;
+    position:absolute;
+    left:-3000px;
+    transition:all 1s;
+  }
+
+
+.wifis{
+  font-family:'Rubik';
+  font-weight:400;
+  font-size:12px;
+  margin:0;
+  top:3px;
+  position:relative;
+}
+
+.printerheader{
+  height:40px;
+}
+
+.printersearch{
+  font-family:'Rubik';
+  font-weight:400;
+  width:200px;
+  height:35px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  box-sizing: border-box;
+  transition:all 0.3s;
+  box-shadow:0px 0px 5px rgba(0, 0, 0, 0.123);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  font-size:20px;
+  outline:none;
+}
+
+.printersearch::placeholder,.printersearch2::placeholder{
+  color:rgb(180, 180, 180);
+  font-weight:300;
+}
+
+.printersearch:focus {
+  width:270px;
+  border:1px solid #009BDF;
+  transition:all 0.3s;
+}
+
+.printersearch2{
+  font-family:'Rubik';
+  font-weight:400;
+  width:120px;
+  height:35px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  box-sizing: border-box;
+  transition:all 0.3s;
+  box-shadow:0px 0px 5px rgba(0, 0, 0, 0.123);
+  border-top-left-radius:0;
+  border-bottom-left-radius:0;
+  font-size:20px;
+  outline:none;
+}
+.printersearch2:focus {
+  width:140px;
+  border:1px solid #009BDF;
+  transition:all 0.3s;
+}
+
+
+.psc:focus-within .psico{
+  transform:rotate(90deg);
+  transition:all 0.3s;
+}
+
+.printsearchicon{
+  width:35px;
+  height:35px;
+  background-color: whitesmoke;
+  color:gray;
+  padding:0px;
+  font-size:17px;
+  text-align:center;
+  align-items: center;
+  vertical-align: middle;
+  box-shadow:0px 0px 5px rgba(0, 0, 0, 0.123);
+  border: 1px solid rgb(192, 192, 192);
+  margin: 8px 0;
+  margin-left:5px;
+  border-top-left-radius:7px;
+  border-bottom-left-radius:7px;
+  border-right:none;
+}
+
+.psico{
+  transform:rotate(0deg);
+  display: inline-block;
+  margin-top:5px;
+  padding:2px;
+  transition:all 0.3s;
+}
+
+
+.thead{
+  font-family:'Rubik';
+  font-weight:400;
+  font-size:15px;
+  height:20px;
+}
+
+
+.thead .ttrhead td {
+  background-color:rgb(143, 169, 184);
+  color:whitesmoke;
+  text-shadow: darkgray 0px 0px 5px ;
+}
+
+.PTABLE{
+  background-color:none;
+  transition:all 1s;
+  overflow: hidden;
+  border-radius:5px;
+}
+
+.PTABLE tr,.PTABLE td{
+  padding:5px;
+}
+
+.ttbody{
+  border-right:1px solid lightgray;
+}
+
+.ttbody tr{
+  border:1px solid lightgray;
+  border-top:none;
+  border-right:1px solid lightgray;
+  color:gray;
+  font-family:'Rubik';
+  font-weight:300;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.ttbody tr td{
+  border-right:1px solid lightgray;
+  user-select:all;
+  -webkit-user-select: all;
+  
+}
+
+.ttbody tr:hover{
+background-color:rgb(223, 223, 223);
+color:rgb(29, 29, 29);
+
+}
+
+.deletedprinter{
+  opacity:0;
+  margin-left:-100px;
+  transition:all 0.5s;
+}
+
+.buttons{
+
+  user-select: none;
+  border-radius:6px;
+  box-shadow:0px 0px 3px rgba(0, 0, 0, 0.288);
+  transition:all 0.2s;
+}
+
+.buttons:hover{
+  padding-top:5px;
+  padding-bottom:5px;
+  transition:all 0.2s;
+}
+.button-edit:hover svg g g{
+fill: #31C442;
+transition:all 0.2s;
+}
+
+.button-delete:hover svg g g{
+  fill: #FB635E;
+  transition:all 0.2s;
+  }
+
+  .button-edit svg{
+    width:20px;
+    height:20px;
+    }
+    
+    .button-delete svg{
+      width:20px;
+      height:20px;
+      }
+
+      .modalexit:hover{color:darkgray;transition:all 0.2s;color:black!important;}
+
+.button-edit{
+
+  background-color:#31C442;
+  color:white;
+  font-family:'Rubik';
+  font-weight:400;
+  transition:all 0.2s;
+  border:1px solid #31C442;;
+}
+
+.button-delete{
+
+  background-color:#FB635E;
+  color:whitesmoke;
+  font-family:'Rubik';
+  font-weight:400;
+  transition:all 0.2s;
+  border:1px solid #FB635E;
+}
+table{
+  transition:all 0.3s;
+}
+.button-edit:hover{
+  background-color:whitesmoke;
+  border:1px solid #31C442;
+  transition:all 0.2s;
+}
+
+.button-delete:hover{
+  background-color:whitesmoke;
+  color:rgb(170, 60, 60);
+  border:1px solid #FB635E;
+  transition:all 0.2s;
+}
+
+.currentuserfooter{
+  font-family:'Rubik';
+  color: gray;
+  font-weight:400;
+  font-size:12.5px;
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-30%,-50%);
+  text-align: center;
+  }
+
+
+  .classheader{
+    font-family:'Rubik';
+    font-weight:300;
+    font-size:20px;
+    margin:0;
+    padding-left:5px;padding-right:0;margin-top:-4px;
+  }
+
+
+
+  /*
+  
+  
+  MODAL
+  
+  */
+
+
+
+  .modalbase{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.534);
+    display:none;
+    animation-name: modalbase;
+    animation-duration:0.5s;
+  }
+
+
+  .modal{
+    position:relative!important;
+    top:0;
+    left:0;
+    z-index:1;
+    height:300px!important;
+    background-color:white;
+    display:none;
+    animation-name: modal;
+    animation-duration:0.5s;
+    border-radius:10px;
+  }
+
+  @keyframes modalbase {
+    from{opacity:0;}
+    to{opacity:1;}
+    
+  }
+  @keyframes modalbase2 {
+    from{opacity:1;}
+    to{opacity:0;}
+    
+  }
+
+  
+  @keyframes modal{
+    0%{top:-350px;}
+    100%{top:0px;}
+
+  }
+
+  @keyframes modal2{
+    0%{top:0px;}
+    100%{top:-350px;}
+
+  }
+
+  .notification{
+    position:absolute;
+    top:-50px;
+    right:30px;
+    z-index:1;
+    display:none;
+    animation-name: notification;
+    animation-duration:0.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function:ease;
+    box-shadow:0px 0px 5px rgba(0, 0, 0, 0.288);
+    background-color:rgb(238, 238, 238);
+    border-radius:5px;
+    width:auto;
+    height:32px;
+    border: 1px solid rgb(199, 199, 199);
+  }
+
+  @keyframes notification{
+    0%{top:-50px;opacity:0;}
+    100%{top:30px;opacity:1;}
+
+  }
+
+  @keyframes notification2{
+    0%{top:30px;opacity:1;}
+    100%{top:-50px;opacity:0;}
+
+  }
