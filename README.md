@@ -1,2 +1,3 @@
 # zaxe-xstocks-electronjs
- Database Management App for Zaxe, made with ElectronJS
+
+Database Management App for Zaxe, made with ElectronJS

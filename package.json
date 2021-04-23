@@ -4,16 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron --enable-transparent-visuals ."
+    "start": "electron --enable-transparent-visuals .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "author": "JAEGER",
   "license": "ISC",
   "dependencies": {
-    "electron": "^12.0.2",
+    "dotenv": "^8.2.0",
     "jquery": "^3.6.0",
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "electron-tooltip": "^1.1.5"
+    "electron": "^12.0.5",
+    "electron-tooltip": "^1.1.5",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1"
   }
 }
