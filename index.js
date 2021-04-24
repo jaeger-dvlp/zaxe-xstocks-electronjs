@@ -1,14 +1,13 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-const db = require('./libs/db');
+const connection = require('./libs/db');
+const { catchError, controlConnection } = require('./handlers');
 
 const { app, BrowserWindow, ipcMain, Menu } = electron;
 
-let mwindow;
-
 app.on('ready', () => {
-  mwindow = new BrowserWindow({
+  let mwindow = new BrowserWindow({
     movable: true,
     maximizable: false,
     fullscreenable: false,
@@ -32,29 +31,6 @@ app.on('ready', () => {
       contextIsolation: false,
       enableRemoteModule: true,
     },
-  });
-
-  db.on('error', (err) => {
-    console.log(err, 'ECONNREFUSED Q Q Q');
-  });
-
-  mwindow.webContents.once('dom-ready', () => {
-    // EDIT
-    db.query('SELECT * FROM printers', (error, results) => {
-      db.on('error', (err) => {
-        console.log(err, 'ECONNREFUSED Q Q Q');
-      });
-      console.log(error, results);
-      if (error) {
-        console.log('SSSSSSS');
-        mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
-      } else {
-        mwindow.webContents.send('init', results);
-        mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
-      }
-
-      db.destroy();
-    });
   });
 
   mwindow.loadURL(
@@ -82,6 +58,7 @@ app.on('ready', () => {
 
   ipcMain.on('ext', () => {
     mwindow.close();
+    process.exit();
   });
 
   let win = 0;
@@ -90,7 +67,7 @@ app.on('ready', () => {
     if (win === 0) {
       mwindow.maximize();
       mwindow.webContents.send('mainup', '');
-      win += 1;
+      win++;
     } else {
       win = 0;
       mwindow.unmaximize();
@@ -98,82 +75,17 @@ app.on('ready', () => {
     }
   });
 
-  /* let conn;
+  catchError(connection);
 
-  ipcMain.on("con", (e, data) => {
-    conn = data;
+  mwindow.webContents.once('dom-ready', () => {
+    controlConnection(connection)
+      .then((results) => {
+        mwindow.webContents.send('init', results);
+        mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
+      })
+      .catch((error) => {
+        console.log(`Query error: ${error}`);
+        mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
+      });
   });
-
-  ipcMain.on("cnc", (e, data) => {
-    const db = mysql.createConnection({
-      host: "",
-      user: "",
-      port: "",
-      password: "",
-      database: "",
-    });
-
-    db.connect((err) => {
-      db.on("error", (err) => {
-        console.log(err, "ECONNREFUSED Q Q Q");
-      });
-      if (err) {
-        db.on("error", (err) => {
-          console.log(err, "ECONNREFUSED Q Q Q");
-        });
-        mwindow.webContents.send("noconn", "Sunucu Bağlantısı Yok.");
-        db.destroy();
-        return;
-      }
-
-      if (conn !== true) {
-        db.query("SELECT * FROM printers", (error, results, fields) => {
-          db.on("error", (err) => {
-            console.log(err, "ECONNREFUSED Q Q Q");
-          });
-
-          console.log(error, results);
-          if (error) {
-            console.log("SSSSSSS");
-            mwindow.webContents.send("noconn", "Sunucu Bağlantısı Yok.");
-            // 10
-            db.destroy();
-          } else {
-            mwindow.webContents.send("init", results);
-            mwindow.webContents.send("yeconn", "Sunucu Bağlantısı Mevcut.");
-            db.destroy();
-          }
-
-          mwindow.webContents.send("yeconn", "Sunucu Bağlantısı Mevcut.");
-
-          if (error) console.log(error);
-          db.destroy();
-        });
-      }
-      db.on("ECONNREFUSED", (err) => {
-        console.log(err);
-      });
-
-      db.on("ECONNREFUSED", (err) => {
-        console.log(err);
-      });
-    });
-
-    
-        db.connect(function (error) {
- 
-            console.log(error);
-            if (error) {
-                console.log("SSSSSSS");
-                mwindow.webContents.send("noconn", "Sunucu Bağlantısı Yok.");
-                //10
- 
-            }
-            else {
- 
-                mwindow.webContents.send("yeconn", "Sunucu Bağlantısı Mevcut.");
-            }
- 
-        }) 
-  }); */
 });
