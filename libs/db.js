@@ -1,5 +1,5 @@
-require("dotenv").config();
-const mysql = require("mysql");
+require('dotenv').config();
+const mysql = require('mysql');
 
 const { SQL_HNAME, SQL_UNAME, SQL_PORT, SQL_PWD, SQL_DBNAME } = process.env;
 

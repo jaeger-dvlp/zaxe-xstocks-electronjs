@@ -83,7 +83,7 @@ body {
 }
 
 .logo {
-  background-image: url("../rsc/logo.png");
+  background-image: url('../rsc/logo.png');
   background-size: cover;
   width: 65px;
   height: 18px;
@@ -120,7 +120,7 @@ body {
   width: 99%;
 }
 .users {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   color: gray;
   font-weight: 400;
   font-size: 13px;
@@ -222,7 +222,7 @@ body {
   width: 63px;
   height: 63px;
   position: relative;
-  background-image: url("../rsc/logobar.png");
+  background-image: url('../rsc/logobar.png');
   background-position: center;
   background-size: contain;
 }
@@ -307,7 +307,7 @@ body {
 }
 
 .wifis {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   font-size: 12px;
   margin: 0;
@@ -320,7 +320,7 @@ body {
 }
 
 .printersearch {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   width: 200px;
   height: 35px;
@@ -350,7 +350,7 @@ body {
 }
 
 .printersearch2 {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   width: 120px;
   height: 35px;
@@ -405,7 +405,7 @@ body {
 }
 
 .thead {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   font-size: 15px;
   height: 20px;
@@ -438,7 +438,7 @@ body {
   border-top: none;
   border-right: 1px solid lightgray;
   color: gray;
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 300;
   font-size: 13px;
   cursor: pointer;
@@ -502,7 +502,7 @@ body {
 .button-edit {
   background-color: #31c442;
   color: white;
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   transition: all 0.2s;
   border: 1px solid #31c442;
@@ -511,7 +511,7 @@ body {
 .button-delete {
   background-color: #fb635e;
   color: whitesmoke;
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 400;
   transition: all 0.2s;
   border: 1px solid #fb635e;
@@ -533,7 +533,7 @@ table {
 }
 
 .currentuserfooter {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   color: gray;
   font-weight: 400;
   font-size: 12.5px;
@@ -545,7 +545,7 @@ table {
 }
 
 .classheader {
-  font-family: "Rubik";
+  font-family: 'Rubik';
   font-weight: 300;
   font-size: 20px;
   margin: 0;
