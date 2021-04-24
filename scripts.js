@@ -66,11 +66,6 @@ function load() {
   });
 }
 
-/*
-Ziya abi selamun aleyküm.DİA yerine bu tarz bir alternatif düşünür müsünüz ?
-    İhtiyacınız olsa şirket kendisi için yapardı diye düşündüm ama, kendime proje olsun diye öylesine yapıyordum bunu.Sorayım dedim belki işinizi görür diye, henüz bitmedi tabii.
-*/
-
 async function searchbar() {
   const ms = 1000;
 
