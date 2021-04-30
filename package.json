@@ -27,6 +27,7 @@
     "start": "electron --enable-transparent-visuals .",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
     "test": "jest"
   },
   "license": "ISC",

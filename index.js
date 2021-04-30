@@ -7,7 +7,7 @@ const { catchError, controlConnection } = require('./handlers');
 const { app, BrowserWindow, ipcMain, Menu } = electron;
 
 app.on('ready', () => {
-  let mwindow = new BrowserWindow({
+  const mwindow = new BrowserWindow({
     movable: true,
     maximizable: false,
     fullscreenable: false,
@@ -67,7 +67,7 @@ app.on('ready', () => {
     if (win === 0) {
       mwindow.maximize();
       mwindow.webContents.send('mainup', '');
-      win++;
+      win += 1;
     } else {
       win = 0;
       mwindow.unmaximize();

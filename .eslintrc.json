@@ -17,7 +17,7 @@
     "no-process-exit": "off",
     "object-shorthand": "off",
     "class-methods-use-this": "off",
-    "endOfLine": "auto",
+    "arrow-body-style": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }
