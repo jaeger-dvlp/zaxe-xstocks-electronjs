@@ -1,10 +1,10 @@
-const electron = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const url = require('url');
 const path = require('path');
-const connection = require('./libs/db');
-const { catchError, controlConnection } = require('./handlers');
+const dbPool = require('./libs/db');
+const { getTableByName } = require('./handlers');
 
-const { app, BrowserWindow, ipcMain, Menu } = electron;
+let conn = '', win = 0;
 
 app.on('ready', () => {
   const mwindow = new BrowserWindow({
@@ -35,7 +35,7 @@ app.on('ready', () => {
 
   mwindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, 'mwindow.html'),
+      pathname: path.join(__dirname, 'static/mwindow.html'),
       slashes: true,
     })
   );
@@ -61,8 +61,6 @@ app.on('ready', () => {
     process.exit();
   });
 
-  let win = 0;
-
   ipcMain.on('lck', () => {
     if (win === 0) {
       mwindow.maximize();
@@ -75,17 +73,33 @@ app.on('ready', () => {
     }
   });
 
-  catchError(connection);
-
   mwindow.webContents.once('dom-ready', () => {
-    controlConnection(connection)
+    getTableByName(dbPool, 'printers')
       .then((results) => {
         mwindow.webContents.send('init', results);
         mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
       })
-      .catch((error) => {
-        console.log(`Query error: ${error}`);
+      .catch((err) => {
+        console.log(`Query Err: ${err}`);
         mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
       });
+  });
+
+  ipcMain.on('con', (e, data) => {
+    conn = data;
+  });
+
+  ipcMain.on('cnc', () => {
+    if (conn === false) {
+      getTableByName(dbPool, 'printers')
+        .then((results) => {
+          mwindow.webContents.send('init', results);
+          mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
+        })
+        .catch((err) => {
+          console.log(`Query Error: ${err}`);
+          mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
+        });
+    }
   });
 });
