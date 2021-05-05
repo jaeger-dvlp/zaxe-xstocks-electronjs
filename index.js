@@ -144,11 +144,11 @@ app.on("ready", () => {
 
     ipcMain.on("cnc", (e, data) => {
         const db = mysql.createConnection({
-            host: "",
-            user: "",
-            port: "",
-            password: "",
-            database: ""
+            host: "remotemysql.com",
+            user: "fkN8CQyvcb",
+            port: "3306",
+            password: "gDgyXzlGQJ",
+            database: "fkN8CQyvcb"
         })
 
         db.connect(function (err) {
