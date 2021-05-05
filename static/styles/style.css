@@ -83,7 +83,7 @@ body {
 }
 
 .logo {
-  background-image: url('../rsc/logo.png');
+  background-image: url('../../rsc/logo.png');
   background-size: cover;
   width: 65px;
   height: 18px;
@@ -222,7 +222,7 @@ body {
   width: 63px;
   height: 63px;
   position: relative;
-  background-image: url('../rsc/logobar.png');
+  background-image: url('../../rsc/logobar.png');
   background-position: center;
   background-size: contain;
 }

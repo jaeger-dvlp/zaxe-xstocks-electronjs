@@ -5,7 +5,6 @@ const dbPool = require('./libs/db');
 const { getTableByName } = require('./handlers');
 
 let win = 0;
-let conn = '';
 
 app.on('ready', () => {
   const mwindow = new BrowserWindow({
@@ -86,21 +85,15 @@ app.on('ready', () => {
       });
   });
 
-  ipcMain.on('con', (e, data) => {
-    conn = data;
-  });
-
   ipcMain.on('cnc', () => {
-    if (conn === false) {
-      getTableByName(dbPool, 'printers')
-        .then((results) => {
-          mwindow.webContents.send('init', results);
-          mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
-        })
-        .catch((err) => {
-          console.log(`Query Error: ${err}`);
-          mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
-        });
-    }
+    getTableByName(dbPool, 'printers')
+      .then((results) => {
+        mwindow.webContents.send('init', results);
+        mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
+      })
+      .catch((err) => {
+        console.log(`Query Error: ${err}`);
+        mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
+      });
   });
 });
