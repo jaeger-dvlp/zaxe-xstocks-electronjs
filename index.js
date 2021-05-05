@@ -4,7 +4,8 @@ const path = require('path');
 const dbPool = require('./libs/db');
 const { getTableByName } = require('./handlers');
 
-let conn = '', win = 0;
+let conn = '';
+let win = 0;
 
 app.on('ready', () => {
   const mwindow = new BrowserWindow({
