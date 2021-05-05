@@ -1,67 +1,65 @@
 const electron = require('electron');
-
+const $ = require('jquery')
+window.$ = window.jQuery = require('jquery');
 const { ipcRenderer } = electron;
 
 const sleep = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
 
-const domLoad = () => {
-  $(document).ready(() => {
-    $('#prsearch').on('keyup', () => {
-      const value = $(this).val().toLowerCase();
-      $('.ttbody tr').filter(() => {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-      });
-    });
-
-    $('#prsearchid').on('keyup', () => {
-      const value = $(this).val().toLowerCase();
-      // console.log(value);
-      $('.ttbody tr').show().filter(`:not(#${value})`).hide();
-    });
-
-    $('#prsearchno').on('keyup', () => {
-      const value = $(this).val().toUpperCase();
-      console.log(value);
-      // console.log(value);
-      $('.ttbody tr').show().filter(`:not(.${value})`).hide();
-    });
+$('#prsearch').on('keyup', () => {
+  const value = $("#prsearch").val().toLowerCase();
+  $('.ttbody tr').filter(() => {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
   });
+});
 
-  setInterval(async () => {
-    searchbar();
-  }, 6000);
+$('#prsearchid').on('keyup', () => {
 
-  for (let i = 0; i < 50; i += 1) {}
-  setInterval(async () => {
-    ipcRenderer.send('cnc', '');
-  }, 10000);
+  const value = $("#prsearchid").val().toLowerCase();
+  $('.ttbody tr').show().filter(`:not(#${value})`).hide();
 
-  setTimeout(async () => {
-    $('#loader-wrapper').fadeOut('slow');
-  }, 3000);
+});
 
-  $(document).ready(() => {
-    const placeHolder = [
-      'Ara..',
-      'Seri No..',
-      'Tarih..',
-      'Cihaz Modeli..',
-      'Alıcı İsmi..',
-    ];
-    let n = 0;
-    const loopLength = placeHolder.length;
+$('#prsearchno').on('keyup', () => {
 
-    if (n < loopLength) {
-      const newPlaceholder = placeHolder[n];
-      n += 1;
-      $('#prsearch').attr('placeholder', newPlaceholder);
-    } else {
-      $('#prsearch').attr('placeholder', placeHolder[0]);
-      n = 0;
-    }
-  });
-};
+  const value = $("#prsearchno").val().toUpperCase();
+  $('.ttbody tr').show().filter(`:not(.${value})`).hide();
+
+});
+
+
+setInterval(async () => {
+  searchbar();
+}, 6000);
+
+setInterval(async () => {
+  ipcRenderer.send('cnc', '');
+}, 10000);
+
+setTimeout(async () => {
+  $('#loader-wrapper').fadeOut('slow');
+}, 3000);
+
+$(document).ready(() => {
+  const placeHolder = [
+    'Ara..',
+    'Seri No..',
+    'Tarih..',
+    'Cihaz Modeli..',
+    'Alıcı İsmi..',
+  ];
+  let n = 0;
+  const loopLength = placeHolder.length;
+
+  if (n < loopLength) {
+    const newPlaceholder = placeHolder[n];
+    n += 1;
+    $('#prsearch').attr('placeholder', newPlaceholder);
+  } else {
+    $('#prsearch').attr('placeholder', placeHolder[0]);
+    n = 0;
+  }
+});
 
 searchbar = async () => {
   const ms = 1000;

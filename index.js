@@ -91,16 +91,16 @@ app.on('ready', () => {
   });
 
   ipcMain.on('cnc', () => {
-    if (conn === false) {
-      getTableByName(dbPool, 'printers')
-        .then((results) => {
-          mwindow.webContents.send('init', results);
-          mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
-        })
-        .catch((err) => {
-          console.log(`Query Error: ${err}`);
-          mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
-        });
-    }
+
+    getTableByName(dbPool, 'printers')
+      .then((results) => {
+        mwindow.webContents.send('init', results);
+        mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
+      })
+      .catch((err) => {
+        console.log(`Query Error: ${err}`);
+        mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
+      });
+
   });
 });
