@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+node_modules
+.env
+npm-debug.log
+npm-error.log
+=======
 
 node_modules/yauzl/README.md
 node_modules/yauzl/package.json
@@ -3968,4 +3974,5 @@ node_modules/.bin/extract-zip
 node_modules/.bin/electron.ps1
 node_modules/.bin/electron.cmd
 node_modules/.bin/electron
+>>>>>>> master
 Yeni Metin Belgesi.txt
