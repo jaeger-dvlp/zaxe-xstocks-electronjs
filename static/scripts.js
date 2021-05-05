@@ -1,68 +1,79 @@
 const electron = require('electron');
-const $ = require('jquery')
-window.$ = window.jQuery = require('jquery');
 const { ipcRenderer } = electron;
+const tt = require('electron-tooltip');
+const { get } = require('jquery');
 
-const sleep = (milliseconds) =>
-  new Promise((resolve) => setTimeout(resolve, milliseconds));
+const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
-$('#prsearch').on('keyup', () => {
-  const value = $("#prsearch").val().toLowerCase();
-  $('.ttbody tr').filter(() => {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+function load() {
+  $(document).ready(function () {
+    $('#prsearch').on('keyup', function () {
+      var value = $(this).val().toLowerCase();
+      //console.log(value);
+      $('.ttbody tr').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+
+    $('#prsearchid').on('keyup', function () {
+      var value = $(this).val().toLowerCase();
+      //console.log(value);
+      $('.ttbody tr')
+        .show()
+        .filter(':not(#' + value + ')')
+        .hide();
+    });
+
+    $('#prsearchno').on('keyup', function () {
+      var value = $(this).val().toUpperCase();
+      console.log(value);
+      //console.log(value);
+      $('.ttbody tr')
+        .show()
+        .filter(':not(.' + value + ')')
+        .hide();
+    });
   });
-});
 
-$('#prsearchid').on('keyup', () => {
+  setInterval(async () => {
+    searchbar();
+  }, 6000);
 
-  const value = $("#prsearchid").val().toLowerCase();
-  $('.ttbody tr').show().filter(`:not(#${value})`).hide();
+  for (var i = 0; i < 50; i++) {}
+  setInterval(async function () {
+    ipcRenderer.send('cnc', '');
+  }, 10000);
 
-});
+  setTimeout(async function () {
+    $('#loader-wrapper').fadeOut('slow');
+  }, 3000);
 
-$('#prsearchno').on('keyup', () => {
+  $(document).ready(function () {
+    var placeHolder = [
+      'Ara..',
+      'Seri No..',
+      'Tarih..',
+      'Cihaz Modeli..',
+      'Alıcı İsmi..',
+    ];
+    var n = 0;
+    var loopLength = placeHolder.length;
 
-  const value = $("#prsearchno").val().toUpperCase();
-  $('.ttbody tr').show().filter(`:not(.${value})`).hide();
+    if (n < loopLength) {
+      var newPlaceholder = placeHolder[n];
+      n++;
+      $('#prsearch').attr('placeholder', newPlaceholder);
+    } else {
+      $('#prsearch').attr('placeholder', placeHolder[0]);
+      n = 0;
+    }
+  });
+}
 
-});
-
-
-setInterval(async () => {
-  searchbar();
-}, 6000);
-
-setInterval(async () => {
-  ipcRenderer.send('cnc', '');
-}, 10000);
-
-setTimeout(async () => {
-  $('#loader-wrapper').fadeOut('slow');
-}, 3000);
-
-$(document).ready(() => {
-  const placeHolder = [
-    'Ara..',
-    'Seri No..',
-    'Tarih..',
-    'Cihaz Modeli..',
-    'Alıcı İsmi..',
-  ];
-  let n = 0;
-  const loopLength = placeHolder.length;
-
-  if (n < loopLength) {
-    const newPlaceholder = placeHolder[n];
-    n += 1;
-    $('#prsearch').attr('placeholder', newPlaceholder);
-  } else {
-    $('#prsearch').attr('placeholder', placeHolder[0]);
-    n = 0;
-  }
-});
-
-searchbar = async () => {
-  const ms = 1000;
+async function searchbar() {
+  var ms = 1000;
 
   await sleep(ms);
   document.getElementById('prsearch').placeholder = 'Model..';
@@ -79,9 +90,9 @@ searchbar = async () => {
 
   document.getElementById('prsearch').placeholder = 'Ara..';
   await sleep(ms);
-};
+}
 
-const minbtn = document.querySelector('#minimize');
+let minbtn = document.querySelector('#minimize');
 minbtn.addEventListener('click', async () => {
   document.getElementById('root').classList.add('root2');
   document.getElementById('root').classList.remove('root');
@@ -92,33 +103,33 @@ minbtn.addEventListener('click', async () => {
   });
 });
 
-const extbnt = document.querySelector('#exit');
+let extbnt = document.querySelector('#exit');
 extbnt.addEventListener('click', () => {
   ipcRenderer.send('ext', '');
 });
 
-const lockbtn = document.querySelector('#lock');
+let lockbtn = document.querySelector('#lock');
 lockbtn.addEventListener('click', () => {
   ipcRenderer.send('lck', '');
 });
 
 ipcRenderer.on('init', (e, printers) => {
-  printers.reverse();
+  printers = printers.reverse();
   console.log(printers);
-  document.getElementById('tbody').innerHTML === '';
+  document.getElementById('tbody').innerHTML == '';
   printers.forEach((printer) => {
     getdata(printer);
   });
 });
 
-const update = async (data) => {
+async function update(data) {
   modalhide();
   await sleep(500);
   notificator('Güncellendi.');
-};
+}
 
-const notificator = async (d) => {
-  const a = document.getElementById('notification');
+async function notificator(d) {
+  var a = document.getElementById('notification');
   console.log(d);
   document.getElementById('event').innerHTML = d;
   a.style.display = 'block';
@@ -127,14 +138,14 @@ const notificator = async (d) => {
   await sleep(200);
   a.style.display = 'none';
   a.style.animationName = 'notification';
-};
+}
 
-const deletepr = async (e) => {
-  const ms = 500;
+async function deletepr(e) {
+  var ms = 500;
 
-  const id = globalid;
-  // console.log(e.id)
-  const a = document.getElementById(id);
+  var id = globalid;
+  //console.log(e.id)
+  var a = document.getElementById(id);
 
   modalhide();
   a.classList.add('deletedprinter');
@@ -142,33 +153,33 @@ const deletepr = async (e) => {
 
   a.remove();
   notificator('Silindi.');
-};
+}
 
-document.getElementById('modalbase').onclick = () => {
+document.getElementById('modalbase').onclick = function () {
   if (
-    event.target !== document.getElementById('modal') &&
-    event.target !== document.getElementById('modalheader') &&
-    event.target !== document.getElementsByClassName('buttons')[0] &&
-    event.target !== document.getElementsByClassName('button-group')[0]
+    event.target != document.getElementById('modal') &&
+    event.target != document.getElementById('modalheader') &&
+    event.target != document.getElementsByClassName('buttons')[0] &&
+    event.target != document.getElementsByClassName('button-group')[0]
   ) {
     modalhide();
   }
 };
 
-let globalid;
+var globalid;
 
-const tableedit = (e) => {
+function tableedit(e) {
   globalid = e.id;
-  const modalb = document.getElementById('modalbase');
-  const modal = document.getElementById('modal');
+  var modalb = document.getElementById('modalbase');
+  var modal = document.getElementById('modal');
 
   modalb.style.display = 'block';
   modal.style.display = 'block';
-};
+}
 
-const modalhide = async () => {
-  const modalb = document.getElementById('modalbase');
-  const modal = document.getElementById('modal');
+async function modalhide() {
+  var modalb = document.getElementById('modalbase');
+  var modal = document.getElementById('modal');
   modalb.style.animationName = 'modalbase2';
   modal.style.animationName = 'modal2';
   await sleep(450);
@@ -176,31 +187,55 @@ const modalhide = async () => {
   modal.style.display = 'none';
   modalb.style.animationName = 'modalbase';
   modal.style.animationName = 'modal';
-};
+}
 
-document.getElementsByClassName('leftbar')[0].onclick = () => {
-  const modalb = document.getElementById('modalbase');
-  const modal = document.getElementById('modal');
+document.getElementsByClassName('leftbar')[0].onclick = function () {
+  var modalb = document.getElementById('modalbase');
+  var modal = document.getElementById('modal');
 
   modalhide();
 };
 
-const getdata = (e) => {
+function getdata(e) {
   document.getElementById('tbody').innerHTML +=
-    `<tr id='${e.id.toString()}' class='trc ${e.serial.toString()}' onclick='tableedit(this)'>` +
-    `<td>${e.id}</td>` +
-    `<td> ${e.date}</td>` +
-    `<td id='${e.serial}'>${e.serial}</td>` +
-    `<td>${e.model}</td>` +
-    `<td>${e.count}</td>` +
-    `<td>${e.adress}</td>` +
-    `<td>${e.name}</td>` +
-    `<td>${e.description}</td>` +
-    `<td>${e.status}</td>` +
-    `</tr>`;
-};
+    "<tr id='" +
+    e.id.toString() +
+    "' class='trc " +
+    e.serial.toString() +
+    "' onclick='tableedit(this)'>" +
+    '<td>' +
+    e.id +
+    '</td>' +
+    '<td> ' +
+    e.date +
+    '</td>' +
+    "<td id='" +
+    e.serial +
+    "'>" +
+    e.serial +
+    '</td>' +
+    '<td>' +
+    e.model +
+    '</td>' +
+    '<td>' +
+    e.count +
+    '</td>' +
+    '<td>' +
+    e.adress +
+    '</td>' +
+    '<td>' +
+    e.name +
+    '</td>' +
+    '<td>' +
+    e.description +
+    '</td>' +
+    '<td>' +
+    e.status +
+    '</td>' +
+    '</tr>';
+}
 
-let con = false;
+var con = false;
 
 ipcRenderer.on('noconn', (e, data) => {
   console.log(data);
@@ -238,10 +273,10 @@ ipcRenderer.on('maindown', (e, data) => {
   document.getElementById('mainsup').classList.remove('mainsup');
 });
 
-const buttons = () => {
-  const a = document.getElementById('printers');
-  const b = document.getElementById('printeradd');
-  const c = document.getElementById('logs');
+function buttons() {
+  var a = document.getElementById('printers'),
+    b = document.getElementById('printeradd'),
+    c = document.getElementById('logs');
   if (a.classList.contains('lbarselected')) {
     a.classList.remove('lbarselected');
   }
@@ -251,28 +286,28 @@ const buttons = () => {
   if (c.classList.contains('lbarselected')) {
     c.classList.remove('lbarselected');
   }
-};
+}
 
-const panels = (e) => {
-  const a = document.getElementById('printersc');
-  const b = document.getElementById('printeraddsc');
-  const c = document.getElementById('logsc');
+function panels(e) {
+  var a = document.getElementById('printersc'),
+    b = document.getElementById('printeraddsc'),
+    c = document.getElementById('logsc');
 
-  if (e === 'printeradd') {
+  if (e == 'printeradd') {
     a.classList.remove('printers');
     a.classList.add('printersdeactive');
     b.classList.add('printeradd');
     b.classList.remove('printeradddeactive');
     c.classList.remove('logs');
     c.classList.add('logsdeactive');
-  } else if (e === 'logs') {
+  } else if (e == 'logs') {
     a.classList.remove('printers');
     a.classList.add('printersdeactive');
     b.classList.remove('printeradd');
     b.classList.add('printeradddeactive');
     c.classList.add('logs');
     c.classList.remove('logsdeactive');
-  } else if (e === 'printers') {
+  } else if (e == 'printers') {
     a.classList.add('printers');
     a.classList.remove('printersdeactive');
     b.classList.remove('printeradd');
@@ -280,29 +315,32 @@ const panels = (e) => {
     c.classList.remove('logs');
     c.classList.add('logsdeactive');
   }
-};
+}
 
-const buttontest = (e) => {
+function buttontest(e) {
   buttons();
-  const a = document.getElementById('printers');
-  const b = document.getElementById('printeradd');
-  const c = document.getElementById('logs');
-  if (e === 'printers') {
-    if (a.classList.contains('lbarselected') !== true) {
+  var a = document.getElementById('printers'),
+    b = document.getElementById('printeradd'),
+    c = document.getElementById('logs');
+  if (e == 'printers') {
+    if (a.classList.contains('lbarselected') == true) {
+    } else {
       a.classList.add('lbarselected');
       panels('printers');
     }
-  } else if (e === 'printeradd') {
+  } else if (e == 'printeradd') {
     buttons();
-    if (b.classList.contains('lbarselected') !== true) {
+    if (b.classList.contains('lbarselected') == true) {
+    } else {
       b.classList.add('lbarselected');
       panels('printeradd');
     }
-  } else if (e === 'logs') {
+  } else if (e == 'logs') {
     buttons();
-    if (c.classList.contains('lbarselected') !== true) {
+    if (c.classList.contains('lbarselected') == true) {
+    } else {
       c.classList.add('lbarselected');
       panels('logs');
     }
   }
-};
+}

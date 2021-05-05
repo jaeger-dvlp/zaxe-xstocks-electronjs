@@ -27,19 +27,6 @@ const getTableByName = (dbPool, tableName) => {
   });
 };
 
-const controlInternetConnection = (dnsModule) => {
-  return new Promise((resolve, reject) => {
-    dnsModule.lookup('f.root-servers.net', (err) => {
-      if (err && err.code === 'ENOTFOUND') {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
-
 module.exports = {
   getTableByName,
-  controlInternetConnection,
 };
