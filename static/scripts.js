@@ -2,75 +2,66 @@ const electron = require('electron');
 const { ipcRenderer } = electron;
 const tt = require('electron-tooltip');
 const { get } = require('jquery');
-
+window.$ = window.jQuery = require('jquery');
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-function load() {
-  $(document).ready(function () {
-    $('#prsearch').on('keyup', function () {
-      var value = $(this).val().toLowerCase();
-      //console.log(value);
-      $('.ttbody tr').filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-      });
-    });
-
-    $('#prsearchid').on('keyup', function () {
-      var value = $(this).val().toLowerCase();
-      //console.log(value);
-      $('.ttbody tr')
-        .show()
-        .filter(':not(#' + value + ')')
-        .hide();
-    });
-
-    $('#prsearchno').on('keyup', function () {
-      var value = $(this).val().toUpperCase();
-      console.log(value);
-      //console.log(value);
-      $('.ttbody tr')
-        .show()
-        .filter(':not(.' + value + ')')
-        .hide();
-    });
+$('#prsearch').on('keyup', function () {
+  var value = $(this).val().toLowerCase();
+  //console.log(value);
+  $('.ttbody tr').filter(function () {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
   });
+});
 
-  setInterval(async () => {
-    searchbar();
-  }, 6000);
+$('#prsearchid').on('keyup', function () {
+  var value = $(this).val().toLowerCase();
+  //console.log(value);
+  $('.ttbody tr').show().filter(':not(#' + value + ')').hide();
+});
 
-  for (var i = 0; i < 50; i++) {}
-  setInterval(async function () {
-    ipcRenderer.send('cnc', '');
-  }, 10000);
+$('#prsearchno').on('keyup', function () {
+  var value = $(this).val().toUpperCase();
+  console.log(value);
+  //console.log(value);
+  $('.ttbody tr').show().filter(':not(.' + value + ')').hide();
+});
 
-  setTimeout(async function () {
-    $('#loader-wrapper').fadeOut('slow');
-  }, 3000);
 
-  $(document).ready(function () {
-    var placeHolder = [
-      'Ara..',
-      'Seri No..',
-      'Tarih..',
-      'Cihaz Modeli..',
-      'Alıcı İsmi..',
-    ];
-    var n = 0;
-    var loopLength = placeHolder.length;
+setInterval(async () => {
+  searchbar();
+}, 6000);
 
-    if (n < loopLength) {
-      var newPlaceholder = placeHolder[n];
-      n++;
-      $('#prsearch').attr('placeholder', newPlaceholder);
-    } else {
-      $('#prsearch').attr('placeholder', placeHolder[0]);
-      n = 0;
-    }
-  });
-}
+setInterval(async function () {
+  ipcRenderer.send('cnc', '');
+}, 10000);
+
+setTimeout(async function () {
+  $('#loader-wrapper').fadeOut('slow');
+}, 3000);
+
+$(document).ready(function () {
+  var placeHolder = [
+    'Ara..',
+    'Seri No..',
+    'Tarih..',
+    'Cihaz Modeli..',
+    'Alıcı İsmi..',
+  ];
+  var n = 0;
+  var loopLength = placeHolder.length;
+
+  if (n < loopLength) {
+    var newPlaceholder = placeHolder[n];
+    n++;
+    $('#prsearch').attr('placeholder', newPlaceholder);
+  } else {
+    $('#prsearch').attr('placeholder', placeHolder[0]);
+    n = 0;
+  }
+});
+
 
 async function searchbar() {
   var ms = 1000;
@@ -116,7 +107,7 @@ lockbtn.addEventListener('click', () => {
 ipcRenderer.on('init', (e, printers) => {
   printers = printers.reverse();
   console.log(printers);
-  document.getElementById('tbody').innerHTML == '';
+  document.getElementById('tbody').innerHTML = '';
   printers.forEach((printer) => {
     getdata(printer);
   });
@@ -252,10 +243,7 @@ ipcRenderer.on('noconn', (e, data) => {
 ipcRenderer.on('yeconn', (e, data) => {
   console.log(data);
   document.getElementById('wifi').style.color = '#31C442';
-  document
-    .getElementById('wifi')
-    .setAttribute('title', 'Sunucu Bağlantısı Mevcut.');
-
+  document.getElementById('wifi').setAttribute('title', 'Sunucu Bağlantısı Mevcut.');
   con = true;
   ipcRenderer.send('con', con);
   if (document.getElementById('noconn')) {

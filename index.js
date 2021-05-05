@@ -62,6 +62,7 @@ app.on('ready', () => {
   });
 
   ipcMain.on('lck', () => {
+
     if (win === 0) {
       mwindow.maximize();
       mwindow.webContents.send('mainup', '');
@@ -71,21 +72,28 @@ app.on('ready', () => {
       mwindow.unmaximize();
       mwindow.webContents.send('maindown', '');
     }
+
   });
 
   mwindow.webContents.once('dom-ready', () => {
+
     getTableByName(dbPool, 'printers')
       .then((results) => {
         mwindow.webContents.send('init', results);
         mwindow.webContents.send('yeconn', 'Sunucu Bağlantısı Mevcut.');
+        con = false;
       })
       .catch((err) => {
         console.log(`Query Err: ${err}`);
         mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
+        con = false;
       });
+
   });
 
+
   ipcMain.on('cnc', () => {
+
     getTableByName(dbPool, 'printers')
       .then((results) => {
         mwindow.webContents.send('init', results);
@@ -95,5 +103,6 @@ app.on('ready', () => {
         console.log(`Query Error: ${err}`);
         mwindow.webContents.send('noconn', 'Sunucu Bağlantısı Yok.');
       });
+
   });
 });
